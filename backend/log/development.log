@@ -1,0 +1,900 @@
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='Backend'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-11-21 08:18:47.200246', '2025-11-21 08:18:47.200252') RETURNING "key" /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+Migrating to CreateDoctors (20251121081831)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (7.8ms)[0m  [1m[35mCREATE TABLE "doctors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "specialty" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251121081831') RETURNING "version" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreatePatients (20251121081836)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE TABLE "patients" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251121081836') RETURNING "version" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateAppointments (20251121081841)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TABLE "appointments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "doctor_id" integer NOT NULL, "patient_id" integer NOT NULL, "appointment_date" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_8db8e1e8a5"
+FOREIGN KEY ("doctor_id")
+  REFERENCES "doctors" ("id")
+, CONSTRAINT "fk_rails_c63da04ab4"
+FOREIGN KEY ("patient_id")
+  REFERENCES "patients" ("id")
+) /*application='Backend'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_appointments_on_doctor_id" ON "appointments" ("doctor_id") /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_appointments_on_patient_id" ON "appointments" ("patient_id") /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20251121081841') RETURNING "version" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+  [1m[36mAppointment Load (0.2ms)[0m  [1m[34mSELECT "appointments".* FROM "appointments" /*application='Backend'*/[0m
+  [1m[36mDoctor Load (0.1ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*application='Backend'*/[0m
+  [1m[36mPatient Load (0.2ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDoctor Create (1.7ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES ('Dr. Gregory House', 'Diagnostic Medicine', '2025-11-21 08:18:56.496974', '2025-11-21 08:18:56.496974') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (3.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDoctor Create (0.9ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES ('Dr. Meredith Grey', 'General Surgery', '2025-11-21 08:18:56.507423', '2025-11-21 08:18:56.507423') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDoctor Create (0.8ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES ('Dr. John Dorian', 'Internal Medicine', '2025-11-21 08:18:56.510122', '2025-11-21 08:18:56.510122') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPatient Create (1.8ms)[0m  [1m[32mINSERT INTO "patients" ("name", "email", "created_at", "updated_at") VALUES ('John Doe', 'john@example.com', '2025-11-21 08:18:56.514784', '2025-11-21 08:18:56.514784') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPatient Create (1.1ms)[0m  [1m[32mINSERT INTO "patients" ("name", "email", "created_at", "updated_at") VALUES ('Jane Smith', 'jane@example.com', '2025-11-21 08:18:56.521052', '2025-11-21 08:18:56.521052') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAppointment Create (1.8ms)[0m  [1m[32mINSERT INTO "appointments" ("doctor_id", "patient_id", "appointment_date", "created_at", "updated_at") VALUES (1, 1, '2025-11-22 08:18:56.524587', '2025-11-21 08:18:56.624574', '2025-11-21 08:18:56.624574') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAppointment Create (3.0ms)[0m  [1m[32mINSERT INTO "appointments" ("doctor_id", "patient_id", "appointment_date", "created_at", "updated_at") VALUES (2, 2, '2025-11-23 08:18:56.630074', '2025-11-21 08:18:56.630672', '2025-11-21 08:18:56.630672') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mDoctor Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "doctors" /*application='Backend'*/[0m
+  [1m[36mPatient Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "patients" /*application='Backend'*/[0m
+  [1m[36mAppointment Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "appointments" /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+  [1m[36mAppointment Load (0.1ms)[0m  [1m[34mSELECT "appointments".* FROM "appointments" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAppointment Destroy (1.3ms)[0m  [1m[31mDELETE FROM "appointments" WHERE "appointments"."id" = 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (2.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAppointment Destroy (0.6ms)[0m  [1m[31mDELETE FROM "appointments" WHERE "appointments"."id" = 2 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mDoctor Load (0.2ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDoctor Destroy (0.7ms)[0m  [1m[31mDELETE FROM "doctors" WHERE "doctors"."id" = 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDoctor Destroy (0.8ms)[0m  [1m[31mDELETE FROM "doctors" WHERE "doctors"."id" = 2 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDoctor Destroy (0.5ms)[0m  [1m[31mDELETE FROM "doctors" WHERE "doctors"."id" = 3 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mPatient Load (0.1ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPatient Destroy (0.8ms)[0m  [1m[31mDELETE FROM "patients" WHERE "patients"."id" = 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPatient Destroy (1.0ms)[0m  [1m[31mDELETE FROM "patients" WHERE "patients"."id" = 2 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDoctor Create (0.8ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES ('Dr. Gregory House', 'Diagnostic Medicine', '2025-11-21 08:19:56.124259', '2025-11-21 08:19:56.124259') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDoctor Create (0.7ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES ('Dr. Meredith Grey', 'General Surgery', '2025-11-21 08:19:56.127210', '2025-11-21 08:19:56.127210') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDoctor Create (0.6ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES ('Dr. John Dorian', 'Internal Medicine', '2025-11-21 08:19:56.129489', '2025-11-21 08:19:56.129489') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPatient Create (0.6ms)[0m  [1m[32mINSERT INTO "patients" ("name", "email", "created_at", "updated_at") VALUES ('John Doe', 'john@example.com', '2025-11-21 08:19:56.131621', '2025-11-21 08:19:56.131621') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPatient Create (0.8ms)[0m  [1m[32mINSERT INTO "patients" ("name", "email", "created_at", "updated_at") VALUES ('Jane Smith', 'jane@example.com', '2025-11-21 08:19:56.133719', '2025-11-21 08:19:56.133719') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAppointment Create (0.7ms)[0m  [1m[32mINSERT INTO "appointments" ("doctor_id", "patient_id", "appointment_date", "created_at", "updated_at") VALUES (4, 3, '2025-11-22 08:19:56.136775', '2025-11-21 08:19:56.141223', '2025-11-21 08:19:56.141223') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAppointment Create (0.7ms)[0m  [1m[32mINSERT INTO "appointments" ("doctor_id", "patient_id", "appointment_date", "created_at", "updated_at") VALUES (5, 4, '2025-11-23 08:19:56.143740', '2025-11-21 08:19:56.143954', '2025-11-21 08:19:56.143954') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mDoctor Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "doctors" /*application='Backend'*/[0m
+  [1m[36mPatient Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "patients" /*application='Backend'*/[0m
+  [1m[36mAppointment Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "appointments" /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Backend'*/[0m
+  [1m[35m (1.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "appointments" /*application='Backend'*/[0m
+  [1m[35m (5.9ms)[0m  [1m[35mCREATE TABLE "appointments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "doctor_id" integer NOT NULL, "patient_id" integer NOT NULL, "appointment_date" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Backend'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_appointments_on_doctor_id" ON "appointments" ("doctor_id") /*application='Backend'*/[0m
+  [1m[35m (6.0ms)[0m  [1m[35mCREATE INDEX "index_appointments_on_patient_id" ON "appointments" ("patient_id") /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "doctors" /*application='Backend'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "doctors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "specialty" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "patients" /*application='Backend'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "patients" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.4ms)[0m  [1m[35mPRAGMA foreign_keys /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='Backend'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aappointments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "doctor_id" integer NOT NULL, "patient_id" integer NOT NULL, "appointment_date" datetime(6) DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Backend'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_aappointments_on_patient_id" ON "aappointments" ("patient_id") /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_aappointments_on_doctor_id" ON "aappointments" ("doctor_id") /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "aappointments" ("id","doctor_id","patient_id","appointment_date","created_at","updated_at")
+                     SELECT "id","doctor_id","patient_id","appointment_date","created_at","updated_at" FROM "appointments" /*application='Backend'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "appointments" /*application='Backend'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "appointments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "doctor_id" integer NOT NULL, "patient_id" integer NOT NULL, "appointment_date" datetime(6) DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_8db8e1e8a5"
+FOREIGN KEY ("doctor_id")
+  REFERENCES "doctors" ("id")
+) /*application='Backend'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_appointments_on_doctor_id" ON "appointments" ("doctor_id") /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_appointments_on_patient_id" ON "appointments" ("patient_id") /*application='Backend'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "appointments" ("id","doctor_id","patient_id","appointment_date","created_at","updated_at")
+                     SELECT "id","doctor_id","patient_id","appointment_date","created_at","updated_at" FROM "aappointments" /*application='Backend'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE "aappointments" /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.2ms)[0m  [1m[35mPRAGMA foreign_keys /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='Backend'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aappointments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "doctor_id" integer NOT NULL, "patient_id" integer NOT NULL, "appointment_date" datetime(6) DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Backend'*/[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE INDEX "tindex_aappointments_on_patient_id" ON "aappointments" ("patient_id") /*application='Backend'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "tindex_aappointments_on_doctor_id" ON "aappointments" ("doctor_id") /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "aappointments" ("id","doctor_id","patient_id","appointment_date","created_at","updated_at")
+                     SELECT "id","doctor_id","patient_id","appointment_date","created_at","updated_at" FROM "appointments" /*application='Backend'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "appointments" /*application='Backend'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "appointments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "doctor_id" integer NOT NULL, "patient_id" integer NOT NULL, "appointment_date" datetime(6) DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_8db8e1e8a5"
+FOREIGN KEY ("doctor_id")
+  REFERENCES "doctors" ("id")
+, CONSTRAINT "fk_rails_c63da04ab4"
+FOREIGN KEY ("patient_id")
+  REFERENCES "patients" ("id")
+) /*application='Backend'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_appointments_on_doctor_id" ON "appointments" ("doctor_id") /*application='Backend'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_appointments_on_patient_id" ON "appointments" ("patient_id") /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "appointments" ("id","doctor_id","patient_id","appointment_date","created_at","updated_at")
+                     SELECT "id","doctor_id","patient_id","appointment_date","created_at","updated_at" FROM "aappointments" /*application='Backend'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "aappointments" /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20251121081841) /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20251121081836),
+(20251121081831); /*application='Backend'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-11-21 08:22:16.274144', '2025-11-21 08:22:16.274147') RETURNING "key" /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.1ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = 'test', "updated_at" = '2025-11-21 08:22:16.275973' WHERE "ar_internal_metadata"."key" = 'environment' /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'schema_sha1' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'd21fe158c74d0ecd444695151a6abe8280b31f41', '2025-11-21 08:22:16.278054', '2025-11-21 08:22:16.278056') RETURNING "key" /*application='Backend'*/[0m
+Started GET "/api/v1/patients" for 127.0.0.1 at 2025-11-21 11:33:44 +0300
+Started GET "/api/v1/doctors" for 127.0.0.1 at 2025-11-21 11:33:44 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+Processing by Api::V1::DoctorsController#index as */*
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (0.5ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+  [1m[36mDoctor Load (2.2ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 462ms (Views: 330.2ms | ActiveRecord: 4.2ms | Allocations: 18706)
+
+
+Completed 200 OK in 431ms (Views: 289.9ms | ActiveRecord: 15.5ms | Allocations: 14979)
+
+
+Started GET "/api/v1/patients" for 127.0.0.1 at 2025-11-21 11:33:45 +0300
+Started GET "/api/v1/doctors" for 127.0.0.1 at 2025-11-21 11:33:45 +0300
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (0.3ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 21ms (Views: 20.7ms | ActiveRecord: 0.3ms | Allocations: 803)
+
+
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.2ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 6ms (Views: 5.2ms | ActiveRecord: 0.2ms | Allocations: 849)
+
+
+Started GET "/api/v1/doctors" for 127.0.0.1 at 2025-11-21 11:36:10 +0300
+Started GET "/api/v1/patients" for 127.0.0.1 at 2025-11-21 11:36:10 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+Processing by Api::V1::PatientsController#index as */*
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mPatient Load (0.2ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+  [1m[36mDoctor Load (1.3ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 101ms (Views: 15.7ms | ActiveRecord: 20.9ms | Allocations: 16115)
+
+
+Completed 200 OK in 112ms (Views: 44.0ms | ActiveRecord: 3.7ms | Allocations: 18578)
+
+
+Started GET "/api/v1/doctors" for 127.0.0.1 at 2025-11-21 11:36:11 +0300
+Started GET "/api/v1/patients" for 127.0.0.1 at 2025-11-21 11:36:11 +0300
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (0.2ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 6ms (Views: 5.7ms | ActiveRecord: 0.2ms | Allocations: 792)
+
+
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.2ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 13ms (Views: 12.1ms | ActiveRecord: 0.2ms | Allocations: 859)
+
+
+Started POST "/api/v1/appointments" for 127.0.0.1 at 2025-11-21 11:36:12 +0300
+Processing by Api::V1::AppointmentsController#create as */*
+  Parameters: {"appointment" => {"doctor_id" => "4", "patient_id" => "3", "appointment_date" => "2025-12-25T10:00"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:11:in 'Api::V1::AppointmentsController#create'
+  [1m[36mDoctor Load (3.8ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" WHERE "doctors"."id" = 4 LIMIT 1 /*action='create',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:11:in 'Api::V1::AppointmentsController#create'
+  [1m[36mPatient Load (0.2ms)[0m  [1m[34mSELECT "patients".* FROM "patients" WHERE "patients"."id" = 3 LIMIT 1 /*action='create',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:11:in 'Api::V1::AppointmentsController#create'
+  [1m[36mAppointment Create (0.3ms)[0m  [1m[32mINSERT INTO "appointments" ("doctor_id", "patient_id", "appointment_date", "created_at", "updated_at") VALUES (4, 3, '2025-12-25 10:00:00', '2025-11-21 08:36:12.582126', '2025-11-21 08:36:12.582126') RETURNING "id" /*action='create',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:11:in 'Api::V1::AppointmentsController#create'
+  [1m[36mTRANSACTION (12.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:11:in 'Api::V1::AppointmentsController#create'
+Completed 201 Created in 416ms (Views: 0.8ms | ActiveRecord: 17.5ms | Allocations: 11030)
+
+
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+  [1m[36mAppointment Load (0.2ms)[0m  [1m[34mSELECT "appointments".* FROM "appointments" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAppointment Destroy (0.9ms)[0m  [1m[31mDELETE FROM "appointments" WHERE "appointments"."id" = 3 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (4.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAppointment Destroy (0.6ms)[0m  [1m[31mDELETE FROM "appointments" WHERE "appointments"."id" = 4 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAppointment Destroy (1.2ms)[0m  [1m[31mDELETE FROM "appointments" WHERE "appointments"."id" = 5 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mDoctor Load (0.1ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDoctor Destroy (0.7ms)[0m  [1m[31mDELETE FROM "doctors" WHERE "doctors"."id" = 4 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDoctor Destroy (0.6ms)[0m  [1m[31mDELETE FROM "doctors" WHERE "doctors"."id" = 5 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDoctor Destroy (0.6ms)[0m  [1m[31mDELETE FROM "doctors" WHERE "doctors"."id" = 6 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mPatient Load (0.1ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPatient Destroy (0.9ms)[0m  [1m[31mDELETE FROM "patients" WHERE "patients"."id" = 3 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPatient Destroy (1.1ms)[0m  [1m[31mDELETE FROM "patients" WHERE "patients"."id" = 4 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDoctor Create (1.0ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES ('Dr. Gregory House', 'Diagnostic Medicine', '2025-11-22 06:36:24.436283', '2025-11-22 06:36:24.436283') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDoctor Create (1.4ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES ('Dr. Meredith Grey', 'General Surgery', '2025-11-22 06:36:24.440130', '2025-11-22 06:36:24.440130') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDoctor Create (1.4ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES ('Dr. John Dorian', 'Internal Medicine', '2025-11-22 06:36:24.445753', '2025-11-22 06:36:24.445753') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPatient Create (0.8ms)[0m  [1m[32mINSERT INTO "patients" ("name", "email", "created_at", "updated_at") VALUES ('John Doe', 'john@example.com', '2025-11-22 06:36:24.450154', '2025-11-22 06:36:24.450154') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPatient Create (0.8ms)[0m  [1m[32mINSERT INTO "patients" ("name", "email", "created_at", "updated_at") VALUES ('Jane Smith', 'jane@example.com', '2025-11-22 06:36:24.452810', '2025-11-22 06:36:24.452810') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAppointment Create (1.1ms)[0m  [1m[32mINSERT INTO "appointments" ("doctor_id", "patient_id", "appointment_date", "created_at", "updated_at") VALUES (7, 5, '2025-11-23 06:36:24.455327', '2025-11-22 06:36:24.498986', '2025-11-22 06:36:24.498986') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAppointment Create (1.1ms)[0m  [1m[32mINSERT INTO "appointments" ("doctor_id", "patient_id", "appointment_date", "created_at", "updated_at") VALUES (8, 6, '2025-11-24 06:36:24.503254', '2025-11-22 06:36:24.503672', '2025-11-22 06:36:24.503672') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mDoctor Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "doctors" /*application='Backend'*/[0m
+  [1m[36mPatient Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "patients" /*application='Backend'*/[0m
+  [1m[36mAppointment Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "appointments" /*application='Backend'*/[0m
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 09:52:12 +0300
+Started GET "/api/v1/patients" for ::1 at 2025-11-22 09:52:12 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+Processing by Api::V1::PatientsController#index as */*
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.1ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  [1m[36mPatient Load (1.5ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 641ms (Views: 40.7ms | ActiveRecord: 5.8ms | Allocations: 16045)
+
+
+Completed 200 OK in 1527ms (Views: 50.3ms | ActiveRecord: 2.6ms | Allocations: 19014)
+
+
+Started POST "/api/v1/appointments" for ::1 at 2025-11-22 09:53:40 +0300
+Processing by Api::V1::AppointmentsController#create as */*
+  Parameters: {"appointment" => {"doctor_id" => "7", "patient_id" => "5", "appointment_date" => "1998-02-19T10:30"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:11:in 'Api::V1::AppointmentsController#create'
+  [1m[36mDoctor Load (2.3ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" WHERE "doctors"."id" = 7 LIMIT 1 /*action='create',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:11:in 'Api::V1::AppointmentsController#create'
+  [1m[36mPatient Load (0.1ms)[0m  [1m[34mSELECT "patients".* FROM "patients" WHERE "patients"."id" = 5 LIMIT 1 /*action='create',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:11:in 'Api::V1::AppointmentsController#create'
+  [1m[36mAppointment Create (0.3ms)[0m  [1m[32mINSERT INTO "appointments" ("doctor_id", "patient_id", "appointment_date", "created_at", "updated_at") VALUES (7, 5, '1998-02-19 10:30:00', '2025-11-22 06:53:41.446297', '2025-11-22 06:53:41.446297') RETURNING "id" /*action='create',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:11:in 'Api::V1::AppointmentsController#create'
+  [1m[36mTRANSACTION (3.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:11:in 'Api::V1::AppointmentsController#create'
+Completed 201 Created in 500ms (Views: 0.7ms | ActiveRecord: 6.3ms | Allocations: 10471)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 09:55:58 +0300
+Started GET "/api/v1/patients" for ::1 at 2025-11-22 09:55:58 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.4ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 11ms (Views: 10.3ms | ActiveRecord: 0.4ms | Allocations: 868)
+
+
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (0.5ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 10ms (Views: 9.0ms | ActiveRecord: 0.4ms | Allocations: 798)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 10:31:39 +0300
+Started GET "/api/v1/patients" for ::1 at 2025-11-22 10:31:39 +0300
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (70.8ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Processing by Api::V1::DoctorsController#index as */*
+Completed 200 OK in 80ms (Views: -61.0ms | ActiveRecord: 140.2ms | Allocations: 1303)
+
+
+  [1m[36mDoctor Load (1.8ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 8ms (Views: 5.0ms | ActiveRecord: 2.8ms | Allocations: 1317)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 10:56:03 +0300
+Started GET "/api/v1/patients" for ::1 at 2025-11-22 10:56:03 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (5.7ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 11ms (Views: 2.3ms | ActiveRecord: 8.7ms | Allocations: 1119)
+
+
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (0.1ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 2ms (Views: 1.9ms | ActiveRecord: 0.1ms | Allocations: 808)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 11:05:29 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (9.3ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 14ms (Views: -4.1ms | ActiveRecord: 17.7ms | Allocations: 1109)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 11:05:29 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.1ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 7ms (Views: 6.8ms | ActiveRecord: 0.1ms | Allocations: 870)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 11:05:31 +0300
+Started GET "/api/v1/patients" for ::1 at 2025-11-22 11:05:31 +0300
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (0.1ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 2ms (Views: 1.6ms | ActiveRecord: 0.1ms | Allocations: 812)
+
+
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.1ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 4ms (Views: 3.3ms | ActiveRecord: 0.1ms | Allocations: 926)
+
+
+Started GET "/api/v1/patients" for ::1 at 2025-11-22 11:05:31 +0300
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 11:05:31 +0300
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (0.2ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 4ms (Views: 3.2ms | ActiveRecord: 0.1ms | Allocations: 812)
+
+
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.1ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 4ms (Views: 3.8ms | ActiveRecord: 0.1ms | Allocations: 870)
+
+
+Started GET "/api/v1/appointments" for ::1 at 2025-11-22 11:05:34 +0300
+Processing by Api::V1::AppointmentsController#index as */*
+  [1m[36mAppointment Load (0.2ms)[0m  [1m[34mSELECT "appointments".* FROM "appointments" /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+  [1m[36mDoctor Load (1.2ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" WHERE "doctors"."id" IN (7, 8) /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+  [1m[36mPatient Load (0.3ms)[0m  [1m[34mSELECT "patients".* FROM "patients" WHERE "patients"."id" IN (5, 6) /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+Completed 200 OK in 490ms (Views: 0.2ms | ActiveRecord: 1.8ms | Allocations: 11964)
+
+
+Started GET "/api/v1/appointments" for ::1 at 2025-11-22 11:05:34 +0300
+Processing by Api::V1::AppointmentsController#index as */*
+  [1m[36mAppointment Load (0.2ms)[0m  [1m[34mSELECT "appointments".* FROM "appointments" /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+  [1m[36mDoctor Load (0.2ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" WHERE "doctors"."id" IN (7, 8) /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+  [1m[36mPatient Load (0.4ms)[0m  [1m[34mSELECT "patients".* FROM "patients" WHERE "patients"."id" IN (5, 6) /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+Completed 200 OK in 9ms (Views: 0.2ms | ActiveRecord: 0.7ms | Allocations: 2591)
+
+
+Started GET "/api/v1/patients" for ::1 at 2025-11-22 11:05:43 +0300
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 11:05:43 +0300
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (0.2ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 3ms (Views: 3.1ms | ActiveRecord: 0.2ms | Allocations: 819)
+
+
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.2ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 3ms (Views: 2.4ms | ActiveRecord: 0.1ms | Allocations: 870)
+
+
+Started GET "/api/v1/patients" for ::1 at 2025-11-22 11:05:43 +0300
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 11:05:43 +0300
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (0.1ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 4ms (Views: 3.3ms | ActiveRecord: 0.1ms | Allocations: 812)
+
+
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.2ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 3ms (Views: 3.0ms | ActiveRecord: 0.2ms | Allocations: 870)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 11:16:29 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (7.5ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 14ms (Views: -0.4ms | ActiveRecord: 13.9ms | Allocations: 1109)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 11:16:29 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.2ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 4ms (Views: 3.5ms | ActiveRecord: 0.2ms | Allocations: 870)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 11:34:44 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (6.7ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 20ms (Views: 7.8ms | ActiveRecord: 11.9ms | Allocations: 1109)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 11:34:44 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.2ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 31ms (Views: 30.9ms | ActiveRecord: 0.2ms | Allocations: 870)
+
+
+Started GET "/api/v1/patients" for ::1 at 2025-11-22 11:35:32 +0300
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 11:35:32 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.2ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 7ms (Views: 6.4ms | ActiveRecord: 0.2ms | Allocations: 876)
+
+
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (1.1ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 6ms (Views: 4.7ms | ActiveRecord: 1.1ms | Allocations: 808)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 11:35:32 +0300
+Started GET "/api/v1/patients" for ::1 at 2025-11-22 11:35:32 +0300
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (0.2ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 2ms (Views: 2.0ms | ActiveRecord: 0.2ms | Allocations: 812)
+
+
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.2ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 8ms (Views: 8.0ms | ActiveRecord: 0.2ms | Allocations: 870)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 12:25:01 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (10.4ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 27ms (Views: 9.1ms | ActiveRecord: 17.1ms | Allocations: 1109)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 12:25:01 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (1.0ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 8ms (Views: 6.5ms | ActiveRecord: 1.1ms | Allocations: 870)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 12:25:02 +0300
+Started GET "/api/v1/patients" for ::1 at 2025-11-22 12:25:02 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (1.1ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 9ms (Views: 8.0ms | ActiveRecord: 1.2ms | Allocations: 877)
+
+
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (0.2ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 11ms (Views: 7.4ms | ActiveRecord: 0.2ms | Allocations: 831)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 12:25:02 +0300
+Started GET "/api/v1/patients" for ::1 at 2025-11-22 12:25:02 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.2ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 7ms (Views: 6.7ms | ActiveRecord: 0.2ms | Allocations: 874)
+
+
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (0.4ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 13ms (Views: 11.8ms | ActiveRecord: 0.4ms | Allocations: 808)
+
+
+Started GET "/api/v1/appointments" for ::1 at 2025-11-22 12:25:04 +0300
+Processing by Api::V1::AppointmentsController#index as */*
+  [1m[36mAppointment Load (0.3ms)[0m  [1m[34mSELECT "appointments".* FROM "appointments" /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+  [1m[36mDoctor Load (1.0ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" WHERE "doctors"."id" IN (7, 8) /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+  [1m[36mPatient Load (0.4ms)[0m  [1m[34mSELECT "patients".* FROM "patients" WHERE "patients"."id" IN (5, 6) /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+Completed 200 OK in 40ms (Views: 0.6ms | ActiveRecord: 1.5ms | Allocations: 2578)
+
+
+Started GET "/api/v1/appointments" for ::1 at 2025-11-22 12:25:04 +0300
+Processing by Api::V1::AppointmentsController#index as */*
+  [1m[36mAppointment Load (0.4ms)[0m  [1m[34mSELECT "appointments".* FROM "appointments" /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+  [1m[36mDoctor Load (2.9ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" WHERE "doctors"."id" IN (7, 8) /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+  [1m[36mPatient Load (0.2ms)[0m  [1m[34mSELECT "patients".* FROM "patients" WHERE "patients"."id" IN (5, 6) /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+Completed 200 OK in 126ms (Views: 0.5ms | ActiveRecord: 3.5ms | Allocations: 2576)
+
+
+Started GET "/api/v1/patients" for ::1 at 2025-11-22 12:25:19 +0300
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 12:25:19 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.3ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 10ms (Views: 8.9ms | ActiveRecord: 0.3ms | Allocations: 877)
+
+
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (0.9ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 6ms (Views: 5.0ms | ActiveRecord: 0.9ms | Allocations: 808)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 12:25:19 +0300
+Started GET "/api/v1/patients" for ::1 at 2025-11-22 12:25:19 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.3ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 8ms (Views: 7.7ms | ActiveRecord: 0.3ms | Allocations: 874)
+
+
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (0.7ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 6ms (Views: 5.5ms | ActiveRecord: 0.7ms | Allocations: 808)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 12:25:21 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.5ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 10ms (Views: 9.6ms | ActiveRecord: 0.5ms | Allocations: 870)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 12:25:22 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.4ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 6ms (Views: 5.7ms | ActiveRecord: 0.4ms | Allocations: 870)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 12:25:51 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.4ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 12ms (Views: 11.1ms | ActiveRecord: 0.4ms | Allocations: 870)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 12:25:51 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.4ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 9ms (Views: 8.0ms | ActiveRecord: 0.4ms | Allocations: 870)
+
+
+Started GET "/api/v1/patients" for ::1 at 2025-11-22 12:25:52 +0300
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 12:25:52 +0300
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (0.5ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 9ms (Views: 8.0ms | ActiveRecord: 0.5ms | Allocations: 818)
+
+
+Started GET "/api/v1/patients" for ::1 at 2025-11-22 12:25:53 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.3ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 14ms (Views: 13.0ms | ActiveRecord: 0.5ms | Allocations: 872)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 12:25:53 +0300
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (0.4ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 21ms (Views: 20.7ms | ActiveRecord: 0.4ms | Allocations: 812)
+
+
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.4ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 34ms (Views: 32.9ms | ActiveRecord: 0.4ms | Allocations: 888)
+
+
+Started GET "/api/v1/appointments" for ::1 at 2025-11-22 12:25:53 +0300
+Processing by Api::V1::AppointmentsController#index as */*
+  [1m[36mAppointment Load (0.2ms)[0m  [1m[34mSELECT "appointments".* FROM "appointments" /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+  [1m[36mDoctor Load (0.5ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" WHERE "doctors"."id" IN (7, 8) /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+  [1m[36mPatient Load (4.6ms)[0m  [1m[34mSELECT "patients".* FROM "patients" WHERE "patients"."id" IN (5, 6) /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+Completed 200 OK in 50ms (Views: 0.2ms | ActiveRecord: 5.3ms | Allocations: 2575)
+
+
+Started GET "/api/v1/appointments" for ::1 at 2025-11-22 12:25:54 +0300
+Processing by Api::V1::AppointmentsController#index as */*
+  [1m[36mAppointment Load (0.4ms)[0m  [1m[34mSELECT "appointments".* FROM "appointments" /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+  [1m[36mDoctor Load (3.1ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" WHERE "doctors"."id" IN (7, 8) /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+  [1m[36mPatient Load (0.5ms)[0m  [1m[34mSELECT "patients".* FROM "patients" WHERE "patients"."id" IN (5, 6) /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+Completed 200 OK in 42ms (Views: 0.3ms | ActiveRecord: 4.0ms | Allocations: 2575)
+
+
+Started GET "/api/v1/patients" for ::1 at 2025-11-22 12:29:27 +0300
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 12:29:27 +0300
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (0.7ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 76ms (Views: 74.4ms | ActiveRecord: 0.7ms | Allocations: 812)
+
+
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.8ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 14ms (Views: 13.1ms | ActiveRecord: 0.8ms | Allocations: 883)
+
+
+Started GET "/api/v1/patients" for ::1 at 2025-11-22 12:29:28 +0300
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 12:29:28 +0300
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (0.3ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 15ms (Views: 14.6ms | ActiveRecord: 0.3ms | Allocations: 812)
+
+
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.5ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 15ms (Views: 14.3ms | ActiveRecord: 0.5ms | Allocations: 870)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 12:29:31 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.4ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 24ms (Views: 22.9ms | ActiveRecord: 0.4ms | Allocations: 870)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 12:29:31 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.3ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 15ms (Views: 13.8ms | ActiveRecord: 0.3ms | Allocations: 870)
+
+
+Started GET "/api/v1/appointments" for ::1 at 2025-11-22 12:29:33 +0300
+Processing by Api::V1::AppointmentsController#index as */*
+  [1m[36mAppointment Load (0.4ms)[0m  [1m[34mSELECT "appointments".* FROM "appointments" /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+  [1m[36mDoctor Load (0.4ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" WHERE "doctors"."id" IN (7, 8) /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+  [1m[36mPatient Load (0.4ms)[0m  [1m[34mSELECT "patients".* FROM "patients" WHERE "patients"."id" IN (5, 6) /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+Completed 200 OK in 65ms (Views: 2.0ms | ActiveRecord: 1.2ms | Allocations: 2576)
+
+
+Started GET "/api/v1/appointments" for ::1 at 2025-11-22 12:29:33 +0300
+Processing by Api::V1::AppointmentsController#index as */*
+  [1m[36mAppointment Load (1.0ms)[0m  [1m[34mSELECT "appointments".* FROM "appointments" /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+  [1m[36mDoctor Load (0.5ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" WHERE "doctors"."id" IN (7, 8) /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+  [1m[36mPatient Load (0.7ms)[0m  [1m[34mSELECT "patients".* FROM "patients" WHERE "patients"."id" IN (5, 6) /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+Completed 200 OK in 47ms (Views: 0.3ms | ActiveRecord: 2.0ms | Allocations: 2575)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 12:29:36 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.4ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 187ms (Views: 186.2ms | ActiveRecord: 0.4ms | Allocations: 870)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 12:29:37 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.4ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 19ms (Views: 18.2ms | ActiveRecord: 0.4ms | Allocations: 870)
+
+
+Started GET "/api/v1/patients" for ::1 at 2025-11-22 12:29:42 +0300
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 12:29:42 +0300
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (0.2ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 11ms (Views: 10.4ms | ActiveRecord: 0.2ms | Allocations: 811)
+
+
+Started GET "/api/v1/patients" for ::1 at 2025-11-22 12:29:43 +0300
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.4ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 11ms (Views: 10.3ms | ActiveRecord: 0.4ms | Allocations: 874)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 12:29:43 +0300
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (0.3ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 8ms (Views: 7.1ms | ActiveRecord: 0.3ms | Allocations: 812)
+
+
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.3ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 11ms (Views: 10.4ms | ActiveRecord: 0.3ms | Allocations: 870)
+
+
+Started GET "/api/v1/appointments" for ::1 at 2025-11-22 12:29:51 +0300
+Processing by Api::V1::AppointmentsController#index as */*
+  [1m[36mAppointment Load (0.3ms)[0m  [1m[34mSELECT "appointments".* FROM "appointments" /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+  [1m[36mDoctor Load (0.5ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" WHERE "doctors"."id" IN (7, 8) /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+  [1m[36mPatient Load (1.8ms)[0m  [1m[34mSELECT "patients".* FROM "patients" WHERE "patients"."id" IN (5, 6) /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+Completed 200 OK in 25ms (Views: 0.4ms | ActiveRecord: 2.0ms | Allocations: 2575)
+
+
+Started GET "/api/v1/appointments" for ::1 at 2025-11-22 12:29:51 +0300
+Processing by Api::V1::AppointmentsController#index as */*
+  [1m[36mAppointment Load (0.5ms)[0m  [1m[34mSELECT "appointments".* FROM "appointments" /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+  [1m[36mDoctor Load (0.5ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" WHERE "doctors"."id" IN (7, 8) /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+  [1m[36mPatient Load (0.4ms)[0m  [1m[34mSELECT "patients".* FROM "patients" WHERE "patients"."id" IN (5, 6) /*action='index',application='Backend',controller='appointments'*/[0m
+  ↳ app/controllers/api/v1/appointments_controller.rb:6:in 'Api::V1::AppointmentsController#index'
+Completed 200 OK in 25ms (Views: 1.1ms | ActiveRecord: 1.2ms | Allocations: 2575)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 12:30:04 +0300
+Started GET "/api/v1/patients" for ::1 at 2025-11-22 12:30:04 +0300
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (0.4ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 11ms (Views: 10.4ms | ActiveRecord: 0.3ms | Allocations: 815)
+
+
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (0.2ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 4ms (Views: 3.6ms | ActiveRecord: 0.2ms | Allocations: 870)
+
+
+Started GET "/api/v1/patients" for ::1 at 2025-11-22 12:30:05 +0300
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 12:30:05 +0300
+Processing by Api::V1::PatientsController#index as */*
+  [1m[36mPatient Load (6.2ms)[0m  [1m[34mSELECT "patients".* FROM "patients" /*action='index',application='Backend',controller='patients'*/[0m
+  ↳ app/controllers/api/v1/patients_controller.rb:6:in 'Api::V1::PatientsController#index'
+Completed 200 OK in 14ms (Views: 8.1ms | ActiveRecord: 6.1ms | Allocations: 815)
+
+
+Processing by Api::V1::DoctorsController#index as */*
+  [1m[36mDoctor Load (1.2ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 12ms (Views: 8.3ms | ActiveRecord: 1.1ms | Allocations: 888)
+
+
+Started GET "/" for 127.0.0.1 at 2025-11-22 13:55:08 +0300
+Processing by Rails::WelcomeController#index as HTML
+  Rendering C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/railties-7.1.6/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/railties-7.1.6/lib/rails/templates/rails/welcome/index.html.erb (Duration: 13.8ms | Allocations: 232)
+Completed 200 OK in 797ms (Views: 173.1ms | ActiveRecord: 0.0ms | Allocations: 7695)
+
+
+Started GET "/" for 127.0.0.1 at 2025-11-22 13:56:44 +0300
+Processing by Rails::WelcomeController#index as HTML
+  Rendering C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/railties-7.1.6/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/railties-7.1.6/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.3ms | Allocations: 15)
+Completed 200 OK in 4ms (Views: 3.1ms | ActiveRecord: 0.0ms | Allocations: 200)
+
+
+Started GET "/" for 127.0.0.1 at 2025-11-22 14:15:27 +0300
+Processing by Rails::WelcomeController#index as HTML
+  Rendering C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/railties-7.1.6/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/railties-7.1.6/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.1ms | Allocations: 15)
+Completed 200 OK in 3ms (Views: 2.0ms | ActiveRecord: 0.0ms | Allocations: 199)
+
+
+Started GET "/" for ::1 at 2025-11-22 14:29:46 +0300
+Processing by Rails::WelcomeController#index as HTML
+  Rendering C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/railties-7.1.6/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/railties-7.1.6/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.8ms | Allocations: 15)
+Completed 200 OK in 4ms (Views: 3.2ms | ActiveRecord: 0.0ms | Allocations: 199)
+
+
+Started GET "/" for 127.0.0.1 at 2025-11-22 14:33:02 +0300
+Processing by Rails::WelcomeController#index as HTML
+  Rendering C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/railties-7.1.6/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered C:/Ruby34-x64/lib/ruby/gems/3.4.0/gems/railties-7.1.6/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.2ms | Allocations: 15)
+Completed 200 OK in 2ms (Views: 2.0ms | ActiveRecord: 0.0ms | Allocations: 199)
+
+
+Started GET "/api/v1/doctors" for ::1 at 2025-11-22 15:10:23 +0300
+Processing by Api::V1::DoctorsController#index as HTML
+  [1m[36mDoctor Load (43.5ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors" /*action='index',application='Backend',controller='doctors'*/[0m
+  ↳ app/controllers/api/v1/doctors_controller.rb:6:in 'Api::V1::DoctorsController#index'
+Completed 200 OK in 221ms (Views: 135.3ms | ActiveRecord: 58.8ms | Allocations: 1110)
+
+

@@ -1,0 +1,546 @@
+  [1m[35m (3.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoctor Create (1.0ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. House"], ["specialty", "Diagnostics"], ["created_at", "2025-11-21 08:22:34.176072"], ["updated_at", "2025-11-21 08:22:34.176072"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPatient Create (0.4ms)[0m  [1m[32mINSERT INTO "patients" ("name", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "John Doe"], ["email", "[FILTERED]"], ["created_at", "2025-11-21 08:22:34.203853"], ["updated_at", "2025-11-21 08:22:34.203853"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/api/v1/appointments" for 127.0.0.1 at 2025-11-21 11:22:34 +0300
+Processing by Api::V1::AppointmentsController#create as HTML
+  Parameters: {"params" => {"appointment" => {"doctor_id" => "1", "patient_id" => "1", "appointment_date" => "2025-12-25T10:00:00Z"}}}
+Completed 400 Bad Request in 186ms (ActiveRecord: 0.0ms | Allocations: 4711)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoctor Create (0.8ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. Gregory House"], ["specialty", "Diagnostic Medicine"], ["created_at", "2025-11-21 08:22:34.702970"], ["updated_at", "2025-11-21 08:22:34.702970"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoctor Create (0.2ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. Meredith Grey"], ["specialty", "General Surgery"], ["created_at", "2025-11-21 08:22:34.705386"], ["updated_at", "2025-11-21 08:22:34.705386"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/api/v1/doctors" for 127.0.0.1 at 2025-11-21 11:22:34 +0300
+Processing by Api::V1::DoctorsController#index as HTML
+  [1m[36mDoctor Load (0.1ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors"[0m
+Completed 200 OK in 23ms (Views: 2.3ms | ActiveRecord: 0.1ms | Allocations: 2043)
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[31mrollback transaction[0m
+Started POST "/api/v1/doctors" for 127.0.0.1 at 2025-11-21 11:22:34 +0300
+Processing by Api::V1::DoctorsController#create as HTML
+  Parameters: {"params" => {"doctor" => {"name" => "Dr. John Dorian", "specialty" => "Internal Medicine"}}}
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms | Allocations: 271)
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoctor Create (1.9ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. House"], ["specialty", "Diagnostics"], ["created_at", "2025-11-21 08:24:01.169795"], ["updated_at", "2025-11-21 08:24:01.169795"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPatient Create (0.7ms)[0m  [1m[32mINSERT INTO "patients" ("name", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "John Doe"], ["email", "[FILTERED]"], ["created_at", "2025-11-21 08:24:01.204879"], ["updated_at", "2025-11-21 08:24:01.204879"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/api/v1/appointments" for 127.0.0.1 at 2025-11-21 11:24:01 +0300
+Processing by Api::V1::AppointmentsController#create as HTML
+  Parameters: {"params" => {"appointment" => {"doctor_id" => "1", "patient_id" => "1", "appointment_date" => "2025-12-25T10:00:00Z"}}}
+Completed 400 Bad Request in 18ms (ActiveRecord: 0.0ms | Allocations: 3591)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoctor Create (4.4ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. Gregory House"], ["specialty", "Diagnostic Medicine"], ["created_at", "2025-11-21 08:24:01.281637"], ["updated_at", "2025-11-21 08:24:01.281637"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoctor Create (0.5ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. Meredith Grey"], ["specialty", "General Surgery"], ["created_at", "2025-11-21 08:24:01.288885"], ["updated_at", "2025-11-21 08:24:01.288885"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/api/v1/doctors" for 127.0.0.1 at 2025-11-21 11:24:01 +0300
+Processing by Api::V1::DoctorsController#index as HTML
+  [1m[36mDoctor Load (0.1ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors"[0m
+Completed 200 OK in 13ms (Views: 2.0ms | ActiveRecord: 0.1ms | Allocations: 2043)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+Started POST "/api/v1/doctors" for 127.0.0.1 at 2025-11-21 11:24:01 +0300
+Processing by Api::V1::DoctorsController#create as HTML
+  Parameters: {"params" => {"doctor" => {"name" => "Dr. John Dorian", "specialty" => "Internal Medicine"}}}
+Completed 400 Bad Request in 1ms (ActiveRecord: 0.0ms | Allocations: 271)
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoctor Create (0.4ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. House"], ["specialty", "Diagnostics"], ["created_at", "2025-11-21 08:25:27.901251"], ["updated_at", "2025-11-21 08:25:27.901251"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPatient Create (0.5ms)[0m  [1m[32mINSERT INTO "patients" ("name", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "John Doe"], ["email", "[FILTERED]"], ["created_at", "2025-11-21 08:25:27.913951"], ["updated_at", "2025-11-21 08:25:27.913951"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/api/v1/appointments" for 127.0.0.1 at 2025-11-21 11:25:27 +0300
+Processing by Api::V1::AppointmentsController#create as HTML
+  Parameters: {"params" => {"appointment" => {"doctor_id" => "1", "patient_id" => "1", "appointment_date" => "2025-12-25T10:00:00Z"}}}
+Completed 400 Bad Request in 23ms (ActiveRecord: 0.0ms | Allocations: 3591)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoctor Create (0.7ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. Gregory House"], ["specialty", "Diagnostic Medicine"], ["created_at", "2025-11-21 08:25:27.994202"], ["updated_at", "2025-11-21 08:25:27.994202"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoctor Create (0.4ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. Meredith Grey"], ["specialty", "General Surgery"], ["created_at", "2025-11-21 08:25:27.996444"], ["updated_at", "2025-11-21 08:25:27.996444"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/api/v1/doctors" for 127.0.0.1 at 2025-11-21 11:25:28 +0300
+Processing by Api::V1::DoctorsController#index as HTML
+  [1m[36mDoctor Load (0.1ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors"[0m
+Completed 200 OK in 13ms (Views: 1.2ms | ActiveRecord: 0.1ms | Allocations: 2043)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+Started POST "/api/v1/doctors" for 127.0.0.1 at 2025-11-21 11:25:28 +0300
+Processing by Api::V1::DoctorsController#create as HTML
+  Parameters: {"params" => {"doctor" => {"name" => "Dr. John Dorian", "specialty" => "Internal Medicine"}}}
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms | Allocations: 271)
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoctor Create (0.9ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. Gregory House"], ["specialty", "Diagnostic Medicine"], ["created_at", "2025-11-21 08:27:54.660675"], ["updated_at", "2025-11-21 08:27:54.660675"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoctor Create (0.5ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. Meredith Grey"], ["specialty", "General Surgery"], ["created_at", "2025-11-21 08:27:54.665783"], ["updated_at", "2025-11-21 08:27:54.665783"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/api/v1/doctors" for 127.0.0.1 at 2025-11-21 11:27:54 +0300
+Processing by Api::V1::DoctorsController#index as HTML
+  [1m[36mDoctor Load (0.1ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors"[0m
+Completed 200 OK in 32ms (Views: 2.1ms | ActiveRecord: 0.1ms | Allocations: 4334)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoctor Create (0.6ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. Gregory House"], ["specialty", "Diagnostic Medicine"], ["created_at", "2025-11-21 08:29:02.740490"], ["updated_at", "2025-11-21 08:29:02.740490"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoctor Create (0.3ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. Meredith Grey"], ["specialty", "General Surgery"], ["created_at", "2025-11-21 08:29:02.743024"], ["updated_at", "2025-11-21 08:29:02.743024"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mDoctor Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "doctors"[0m
+Started GET "/api/v1/doctors" for 127.0.0.1 at 2025-11-21 11:29:02 +0300
+Processing by Api::V1::DoctorsController#index as HTML
+  [1m[36mDoctor Load (0.1ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors"[0m
+Completed 200 OK in 19ms (Views: 1.8ms | ActiveRecord: 0.1ms | Allocations: 2919)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mDoctor Create (0.5ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. House"], ["specialty", "Diagnostics"], ["created_at", "2025-11-21 08:29:51.639672"], ["updated_at", "2025-11-21 08:29:51.639672"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mPatient Create (0.4ms)[0m  [1m[32mINSERT INTO "patients" ("name", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "John Doe"], ["email", "[FILTERED]"], ["created_at", "2025-11-21 08:29:51.660565"], ["updated_at", "2025-11-21 08:29:51.660565"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+Started POST "/api/v1/appointments" for 127.0.0.1 at 2025-11-21 11:29:51 +0300
+Processing by Api::V1::AppointmentsController#create as HTML
+  Parameters: {"params" => {"appointment" => {"doctor_id" => "1", "patient_id" => "1", "appointment_date" => "2025-12-25T10:00:00Z"}}}
+Completed 400 Bad Request in 71ms (ActiveRecord: 0.0ms | Allocations: 3591)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mDoctor Create (0.5ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. Gregory House"], ["specialty", "Diagnostic Medicine"], ["created_at", "2025-11-21 08:29:51.767199"], ["updated_at", "2025-11-21 08:29:51.767199"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mDoctor Create (0.4ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. Meredith Grey"], ["specialty", "General Surgery"], ["created_at", "2025-11-21 08:29:51.768562"], ["updated_at", "2025-11-21 08:29:51.768562"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mDoctor Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "doctors"[0m
+Started GET "/api/v1/doctors" for 127.0.0.1 at 2025-11-21 11:29:51 +0300
+Processing by Api::V1::DoctorsController#index as HTML
+  [1m[36mDoctor Load (0.1ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors"[0m
+Completed 200 OK in 2ms (Views: 2.1ms | ActiveRecord: 0.1ms | Allocations: 630)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[31mrollback transaction[0m
+Started POST "/api/v1/doctors" for 127.0.0.1 at 2025-11-21 11:29:51 +0300
+Processing by Api::V1::DoctorsController#create as HTML
+  Parameters: {"params" => {"doctor" => {"name" => "Dr. John Dorian", "specialty" => "Internal Medicine"}}}
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms | Allocations: 271)
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mDoctor Create (0.4ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. Gregory House"], ["specialty", "Diagnostic Medicine"], ["created_at", "2025-11-21 08:30:35.060851"], ["updated_at", "2025-11-21 08:30:35.060851"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mDoctor Create (0.2ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. Meredith Grey"], ["specialty", "General Surgery"], ["created_at", "2025-11-21 08:30:35.062425"], ["updated_at", "2025-11-21 08:30:35.062425"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mDoctor Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "doctors"[0m
+Started GET "/api/v1/doctors" for 127.0.0.1 at 2025-11-21 11:30:35 +0300
+Processing by Api::V1::DoctorsController#index as HTML
+  [1m[36mDoctor Load (0.1ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors"[0m
+Completed 200 OK in 15ms (Views: 1.8ms | ActiveRecord: 0.1ms | Allocations: 2919)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mDoctor Create (1.2ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. Gregory House"], ["specialty", "Diagnostic Medicine"], ["created_at", "2025-11-21 08:32:22.338025"], ["updated_at", "2025-11-21 08:32:22.338025"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_2[0m
+  [1m[36mDoctor Create (0.2ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. Meredith Grey"], ["specialty", "General Surgery"], ["created_at", "2025-11-21 08:32:22.341938"], ["updated_at", "2025-11-21 08:32:22.341938"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_2[0m
+  [1m[36mDoctor Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "doctors"[0m
+Started GET "/api/v1/doctors" for 127.0.0.1 at 2025-11-21 11:32:22 +0300
+Processing by Api::V1::DoctorsController#index as HTML
+  [1m[36mDoctor Load (0.2ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors"[0m
+Completed 200 OK in 186ms (Views: 2.9ms | ActiveRecord: 0.2ms | Allocations: 2919)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDoctor Create (1.2ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. House"], ["specialty", "Diagnostics"], ["created_at", "2025-11-21 08:33:37.623091"], ["updated_at", "2025-11-21 08:33:37.623091"]]
+  [1m[36mTRANSACTION (13.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPatient Create (1.1ms)[0m  [1m[32mINSERT INTO "patients" ("name", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "John Doe"], ["email", "[FILTERED]"], ["created_at", "2025-11-21 08:33:37.730452"], ["updated_at", "2025-11-21 08:33:37.730452"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+Started POST "/api/v1/appointments" for 127.0.0.1 at 2025-11-21 11:33:37 +0300
+Processing by Api::V1::AppointmentsController#create as HTML
+  Parameters: {"params" => {"appointment" => {"doctor_id" => "1", "patient_id" => "1", "appointment_date" => "2025-12-25T10:00:00Z"}}}
+Completed 400 Bad Request in 70ms (ActiveRecord: 0.0ms | Allocations: 3591)
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.4ms)[0m  [1m[35mTRUNCATE TABLE "doctors"[0m
+  [1m[35m (0.7ms)[0m  [1m[31mDELETE FROM "doctors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.2ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'doctors';[0m
+  [1m[35m (0.3ms)[0m  [1m[35mTRUNCATE TABLE "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.2ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'patients';[0m
+  [1m[35m (0.3ms)[0m  [1m[35mTRUNCATE TABLE "appointments"[0m
+  [1m[35m (0.2ms)[0m  [1m[31mDELETE FROM "appointments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.2ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'appointments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.6ms)[0m  [1m[35mTRUNCATE TABLE "doctors"[0m
+  [1m[35m (0.2ms)[0m  [1m[31mDELETE FROM "doctors"[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'doctors';[0m
+  [1m[35m (0.4ms)[0m  [1m[35mTRUNCATE TABLE "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'patients';[0m
+  [1m[35m (0.3ms)[0m  [1m[35mTRUNCATE TABLE "appointments"[0m
+  [1m[35m (0.3ms)[0m  [1m[31mDELETE FROM "appointments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'appointments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDoctor Create (0.5ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. Gregory House"], ["specialty", "Diagnostic Medicine"], ["created_at", "2025-11-21 08:33:38.060823"], ["updated_at", "2025-11-21 08:33:38.060823"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDoctor Create (5.5ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. Meredith Grey"], ["specialty", "General Surgery"], ["created_at", "2025-11-21 08:33:38.062890"], ["updated_at", "2025-11-21 08:33:38.062890"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mDoctor Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "doctors"[0m
+Started GET "/api/v1/doctors" for 127.0.0.1 at 2025-11-21 11:33:38 +0300
+Processing by Api::V1::DoctorsController#index as HTML
+  [1m[36mDoctor Load (0.2ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors"[0m
+Completed 200 OK in 4ms (Views: 3.9ms | ActiveRecord: 0.2ms | Allocations: 626)
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.3ms)[0m  [1m[35mTRUNCATE TABLE "doctors"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "doctors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.3ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'doctors';[0m
+  [1m[35m (0.3ms)[0m  [1m[35mTRUNCATE TABLE "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'patients';[0m
+  [1m[35m (0.3ms)[0m  [1m[35mTRUNCATE TABLE "appointments"[0m
+  [1m[35m (0.2ms)[0m  [1m[31mDELETE FROM "appointments"[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'appointments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (1.2ms)[0m  [1m[35mTRUNCATE TABLE "doctors"[0m
+  [1m[35m (0.2ms)[0m  [1m[31mDELETE FROM "doctors"[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'doctors';[0m
+  [1m[35m (0.5ms)[0m  [1m[35mTRUNCATE TABLE "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'patients';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "appointments"[0m
+  [1m[35m (0.2ms)[0m  [1m[31mDELETE FROM "appointments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'appointments';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+Started POST "/api/v1/doctors" for 127.0.0.1 at 2025-11-21 11:33:38 +0300
+Processing by Api::V1::DoctorsController#create as HTML
+  Parameters: {"params" => {"doctor" => {"name" => "Dr. John Dorian", "specialty" => "Internal Medicine"}}}
+Completed 400 Bad Request in 1ms (ActiveRecord: 0.0ms | Allocations: 271)
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.9ms)[0m  [1m[35mTRUNCATE TABLE "doctors"[0m
+  [1m[35m (0.3ms)[0m  [1m[31mDELETE FROM "doctors"[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'doctors';[0m
+  [1m[35m (0.3ms)[0m  [1m[35mTRUNCATE TABLE "patients"[0m
+  [1m[35m (0.4ms)[0m  [1m[31mDELETE FROM "patients"[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'patients';[0m
+  [1m[35m (0.4ms)[0m  [1m[35mTRUNCATE TABLE "appointments"[0m
+  [1m[35m (0.4ms)[0m  [1m[31mDELETE FROM "appointments"[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'appointments';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "doctors"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "doctors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'doctors';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'patients';[0m
+  [1m[35m (0.3ms)[0m  [1m[35mTRUNCATE TABLE "appointments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "appointments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'appointments';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.5ms)[0m  [1m[35mTRUNCATE TABLE "doctors"[0m
+  [1m[35m (1.9ms)[0m  [1m[31mDELETE FROM "doctors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.7ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'doctors';[0m
+  [1m[35m (0.3ms)[0m  [1m[35mTRUNCATE TABLE "patients"[0m
+  [1m[35m (0.2ms)[0m  [1m[31mDELETE FROM "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'patients';[0m
+  [1m[35m (0.4ms)[0m  [1m[35mTRUNCATE TABLE "appointments"[0m
+  [1m[35m (0.3ms)[0m  [1m[31mDELETE FROM "appointments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'appointments';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDoctor Create (1.7ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. House"], ["specialty", "Diagnostics"], ["created_at", "2025-11-21 08:36:06.068224"], ["updated_at", "2025-11-21 08:36:06.068224"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPatient Create (0.8ms)[0m  [1m[32mINSERT INTO "patients" ("name", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "John Doe"], ["email", "[FILTERED]"], ["created_at", "2025-11-21 08:36:06.094587"], ["updated_at", "2025-11-21 08:36:06.094587"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+Started POST "/api/v1/appointments" for 127.0.0.1 at 2025-11-21 11:36:06 +0300
+Processing by Api::V1::AppointmentsController#create as HTML
+  Parameters: {"params" => {"appointment" => {"doctor_id" => "1", "patient_id" => "1", "appointment_date" => "2025-12-25T10:00:00Z"}}}
+Completed 400 Bad Request in 45ms (ActiveRecord: 0.0ms | Allocations: 3591)
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (3.2ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.4ms)[0m  [1m[35mTRUNCATE TABLE "doctors"[0m
+  [1m[35m (0.3ms)[0m  [1m[31mDELETE FROM "doctors"[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.2ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'doctors';[0m
+  [1m[35m (0.3ms)[0m  [1m[35mTRUNCATE TABLE "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "patients"[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.2ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'patients';[0m
+  [1m[35m (0.4ms)[0m  [1m[35mTRUNCATE TABLE "appointments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "appointments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'appointments';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "doctors"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "doctors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'doctors';[0m
+  [1m[35m (0.4ms)[0m  [1m[35mTRUNCATE TABLE "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'patients';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "appointments"[0m
+  [1m[35m (0.2ms)[0m  [1m[31mDELETE FROM "appointments"[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (1.3ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'appointments';[0m
+  [1m[35m (0.4ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.4ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.4ms)[0m  [1m[35mTRUNCATE TABLE "doctors"[0m
+  [1m[35m (0.4ms)[0m  [1m[31mDELETE FROM "doctors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'doctors';[0m
+  [1m[35m (0.3ms)[0m  [1m[35mTRUNCATE TABLE "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'patients';[0m
+  [1m[35m (0.7ms)[0m  [1m[35mTRUNCATE TABLE "appointments"[0m
+  [1m[35m (3.0ms)[0m  [1m[31mDELETE FROM "appointments"[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.2ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'appointments';[0m
+  [1m[35m (0.3ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDoctor Create (1.5ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. Gregory House"], ["specialty", "Diagnostic Medicine"], ["created_at", "2025-11-21 08:36:06.287186"], ["updated_at", "2025-11-21 08:36:06.287186"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mDoctor Create (0.5ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. Meredith Grey"], ["specialty", "General Surgery"], ["created_at", "2025-11-21 08:36:06.302916"], ["updated_at", "2025-11-21 08:36:06.302916"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mDoctor Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "doctors"[0m
+Started GET "/api/v1/doctors" for 127.0.0.1 at 2025-11-21 11:36:06 +0300
+Processing by Api::V1::DoctorsController#index as HTML
+  [1m[36mDoctor Load (0.3ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors"[0m
+Completed 200 OK in 14ms (Views: 13.4ms | ActiveRecord: 0.3ms | Allocations: 626)
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.3ms)[0m  [1m[35mTRUNCATE TABLE "doctors"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "doctors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'doctors';[0m
+  [1m[35m (0.3ms)[0m  [1m[35mTRUNCATE TABLE "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'patients';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "appointments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "appointments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'appointments';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.3ms)[0m  [1m[35mTRUNCATE TABLE "doctors"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "doctors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'doctors';[0m
+  [1m[35m (1.0ms)[0m  [1m[35mTRUNCATE TABLE "patients"[0m
+  [1m[35m (0.9ms)[0m  [1m[31mDELETE FROM "patients"[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'patients';[0m
+  [1m[35m (0.5ms)[0m  [1m[35mTRUNCATE TABLE "appointments"[0m
+  [1m[35m (0.3ms)[0m  [1m[31mDELETE FROM "appointments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'appointments';[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.4ms)[0m  [1m[35mTRUNCATE TABLE "doctors"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "doctors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'doctors';[0m
+  [1m[35m (0.3ms)[0m  [1m[35mTRUNCATE TABLE "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'patients';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "appointments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "appointments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'appointments';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+Started POST "/api/v1/doctors" for 127.0.0.1 at 2025-11-21 11:36:06 +0300
+Processing by Api::V1::DoctorsController#create as HTML
+  Parameters: {"params" => {"doctor" => {"name" => "Dr. John Dorian", "specialty" => "Internal Medicine"}}}
+Completed 400 Bad Request in 1ms (ActiveRecord: 0.0ms | Allocations: 273)
+  [1m[35m (0.5ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.3ms)[0m  [1m[35mTRUNCATE TABLE "doctors"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "doctors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'doctors';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.0ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'patients';[0m
+  [1m[35m (0.2ms)[0m  [1m[35mTRUNCATE TABLE "appointments"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "appointments"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'appointments';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.5ms)[0m  [1m[35mTRUNCATE TABLE "doctors"[0m
+  [1m[35m (0.9ms)[0m  [1m[31mDELETE FROM "doctors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'doctors';[0m
+  [1m[35m (0.4ms)[0m  [1m[35mTRUNCATE TABLE "patients"[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM "patients"[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'patients';[0m
+  [1m[35m (0.3ms)[0m  [1m[35mTRUNCATE TABLE "appointments"[0m
+  [1m[35m (1.0ms)[0m  [1m[31mDELETE FROM "appointments"[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT name FROM sqlite_master WHERE type='table' AND name='sqlite_sequence';[0m
+  [1m[35m (0.1ms)[0m  [1m[31mDELETE FROM sqlite_sequence where name = 'appointments';[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoctor Create (0.6ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. House"], ["specialty", "Diagnostics"], ["created_at", "2025-11-21 08:36:54.781244"], ["updated_at", "2025-11-21 08:36:54.781244"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPatient Create (0.6ms)[0m  [1m[32mINSERT INTO "patients" ("name", "email", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "John Doe"], ["email", "[FILTERED]"], ["created_at", "2025-11-21 08:36:54.796446"], ["updated_at", "2025-11-21 08:36:54.796446"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/api/v1/appointments" for 127.0.0.1 at 2025-11-21 11:36:54 +0300
+Processing by Api::V1::AppointmentsController#create as HTML
+  Parameters: {"params" => {"appointment" => {"doctor_id" => "1", "patient_id" => "1", "appointment_date" => "2025-12-25T10:00:00Z"}}}
+Completed 400 Bad Request in 18ms (ActiveRecord: 0.0ms | Allocations: 3593)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoctor Create (0.6ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. Gregory House"], ["specialty", "Diagnostic Medicine"], ["created_at", "2025-11-21 08:36:54.863879"], ["updated_at", "2025-11-21 08:36:54.863879"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mDoctor Create (0.2ms)[0m  [1m[32mINSERT INTO "doctors" ("name", "specialty", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Dr. Meredith Grey"], ["specialty", "General Surgery"], ["created_at", "2025-11-21 08:36:54.865562"], ["updated_at", "2025-11-21 08:36:54.865562"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mDoctor Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "doctors"[0m
+Started GET "/api/v1/doctors" for 127.0.0.1 at 2025-11-21 11:36:54 +0300
+Processing by Api::V1::DoctorsController#index as HTML
+  [1m[36mDoctor Load (0.1ms)[0m  [1m[34mSELECT "doctors".* FROM "doctors"[0m
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.1ms | Allocations: 630)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+Started POST "/api/v1/doctors" for 127.0.0.1 at 2025-11-21 11:36:54 +0300
+Processing by Api::V1::DoctorsController#create as HTML
+  Parameters: {"params" => {"doctor" => {"name" => "Dr. John Dorian", "specialty" => "Internal Medicine"}}}
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms | Allocations: 273)
